@@ -42,6 +42,9 @@ class Ui_MainWindow(object):
         self.label1 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label1.setObjectName("label1")
         self.horizontalLayout.addWidget(self.label1)
+        self.pushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton.setObjectName("pushButton")
+        self.horizontalLayout.addWidget(self.pushButton)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         self.verticalLayout_2.setContentsMargins(-1, -1, 0, 200)
@@ -83,5 +86,6 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label1.setText(_translate("MainWindow", "Set Coordinates:"))
+        self.pushButton.setText(_translate("MainWindow", "Update Coordinates"))
         self.label.setText(_translate("MainWindow", "Horizontal coordinate:"))
         self.label_2.setText(_translate("MainWindow", "Vertical coordinate:"))
