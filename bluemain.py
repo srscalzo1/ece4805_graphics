@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtWidgets
-from bluesen import Ui_MainWindow  # Import your generated UI class
+from bluesen_v2 import Ui_MainWindow  # Import your generated UI class
 
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Create the application object
