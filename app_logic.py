@@ -5,14 +5,14 @@ import io
 
 from PyQt5.QtWidgets import QMainWindow
 
-from ece4805_graphics.bluesen_v3 import Ui_MainWindow
+from bluesen_v3 import Ui_MainWindow
 
 
 class AppWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)  # Load UI from bluesen_v3.py
-        self.pushButton.clicked.connect(self.updateMap)  # Override method
+        self.pushButton.clicked.connect(self.updateMap) 
 
     def updateMap(self):
         try:
