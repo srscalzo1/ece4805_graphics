@@ -46,8 +46,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.label1)
         self.pushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pushButton.setObjectName("pushButton")
-        # Button functionality to update coordinates
-        # self.pushButton.clicked.connect(self.updateMap)
 
         self.horizontalLayout.addWidget(self.pushButton)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
@@ -94,10 +92,3 @@ class Ui_MainWindow(object):
         self.pushButton.setText(_translate("MainWindow", "Update Coordinates"))
         self.label.setText(_translate("MainWindow", "Horizontal coordinate:"))
         self.label_2.setText(_translate("MainWindow", "Vertical coordinate:"))
-
-    def updateMap(self):
-        coordinate = (self.lineEdit.text(), self.lineEdit_2.text())
-        geoMap = folium.Map(zoom_start= 11, location= coordinate)
-        data = io.BytesIO()
-        geoMap.save(data, close_file= False)
-        self.webView.setHtml(data.getvalue().decode())

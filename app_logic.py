@@ -12,7 +12,7 @@ class AppWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)  # Load UI from bluesen_v3.py
-        self.pushButton.clicked.connect(self.updateMap)  # Override method
+        self.pushButton.clicked.connect(self.updateMap) 
 
     def updateMap(self):
         try:
