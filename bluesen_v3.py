@@ -11,6 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 import folium
+from folium.plugins import MousePosition
 import io
 
 
@@ -30,6 +31,7 @@ class Ui_MainWindow(object):
         # Add map to veritical layout
         coordinate = (40.7128, -74.0060)
         geoMap = folium.Map(zoom_start= 11, location= coordinate)
+        MousePosition().add_to(geoMap)
         data = io.BytesIO()
         geoMap.save(data, close_file= False)
         self.webView = QWebEngineView()

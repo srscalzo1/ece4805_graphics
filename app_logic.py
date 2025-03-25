@@ -3,7 +3,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 import folium
 import io
 
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QLabel, QMessageBox
 
 from bluesen_v3 import Ui_MainWindow
 
@@ -16,10 +16,16 @@ class AppWindow(QMainWindow, Ui_MainWindow):
 
     def updateMap(self):
         try:
-            coordinate = (float(self.lineEdit.text()), float(self.lineEdit_2.text()))
+            lat = float(self.lineEdit.text())
+            lon = float(self.lineEdit_2.text())
+            if not (-90 <= lat <= 90):
+                raise ValueError("Latitude must be between -90 and 90")
+            if not (-180 <= lon <= 180):
+                raise ValueError("Longitude must be between -180 and 180")
+            coordinate = (lat, lon)
             geoMap = folium.Map(zoom_start=11, location=coordinate)
             data = io.BytesIO()
             geoMap.save(data, close_file=False)
             self.webView.setHtml(data.getvalue().decode())
-        except ValueError:
-            print("Invalid input: Please enter numeric values for coordinates.")
+        except ValueError as e:
+            QtWidgets.QMessageBox.warning(self, "Invalid input", str(e))
