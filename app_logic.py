@@ -3,6 +3,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 import folium
 import io
 
+
 from PyQt5.QtWidgets import QMainWindow, QLabel, QMessageBox
 
 from bluesen_v3 import Ui_MainWindow
@@ -24,6 +25,12 @@ class AppWindow(QMainWindow, Ui_MainWindow):
                 raise ValueError("Longitude must be between -180 and 180")
             coordinate = (lat, lon)
             geoMap = folium.Map(zoom_start=11, location=coordinate)
+            # Add a home icon to the map on selected corrdinates
+            folium.Marker(
+                location=[lat, lon], 
+                popup="Marker Popup Text",
+                icon=folium.Icon(icon="home", color="red")
+            ).add_to(geoMap)
             data = io.BytesIO()
             geoMap.save(data, close_file=False)
             self.webView.setHtml(data.getvalue().decode())
