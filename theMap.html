@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map Viewer</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        var myMap;
+
+        function setMap() {
+            myMap = L.map('map').setView([40.7128, -74.0060], 11);  // Set initial coordinates and zoom level
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(myMap);
+        }
+
+        function updateMap(lat, lon) {
+            if (myMap) {
+                myMap.setView([lat, lon], 11);  // Dynamically update map view
+                L.marker([lat, lon]).addTo(myMap).bindPopup("New Location").openPopup();
+            }
+        }
+
+        function selectCoordinates(lat, lon) {
+            updateMap(lat, lon);
+        }
+
+        function goHome(lat, lon) {
+            updateMap(lat, lon);  
+        }
+
+        // Call the map initialization function once the page is fully loaded
+        window.onload = function() {
+            setMap();
+        };
+    </script>
+</head>
+<body>
+    <div id="map" style="width: 100%; height: 100vh;"></div>
+</body>
+</html>
