@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtQuickWidgets, QtWidgets
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 import folium
+import time
 from folium.plugins import MousePosition
 import io
 import os
@@ -45,13 +46,8 @@ class Ui_MainWindow(object):
 
         # Load the HTML file into QWebEngineView
         self.webView.setUrl(QUrl.fromLocalFile(html_file_path))
-
-        js_code = f"""
-            setMap();
-        """
-        self.webView.page().runJavaScript(js_code)
-
         self.verticalLayout.addWidget(self.webView)
+
 
         # js_code = f"""
         #         initializeMap({self.lat}, {self.lon});

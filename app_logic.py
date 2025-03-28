@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 import folium
 import io
-
+import time
 
 from PyQt5.QtWidgets import QMainWindow, QLabel, QMessageBox
 
@@ -15,8 +15,6 @@ class AppWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)  # Load UI from bluesen_v3.py
         self.pushButton.clicked.connect(self.selectCoordinates) 
         self.pushButton_2.clicked.connect(self.goHome)
-
-
 
     def selectCoordinates(self):
         try:
@@ -38,7 +36,7 @@ class AppWindow(QMainWindow, Ui_MainWindow):
             # geoMap.save(data, close_file=False)
             # self.webView.setHtml(data.getvalue().decode())
 
-                    # Call the JavaScript function to select coordinates
+            # Call the JavaScript function to select coordinates
             js_code = f"""
                 selectCoordinates({self.lat}, {self.lon});
             """
@@ -46,20 +44,10 @@ class AppWindow(QMainWindow, Ui_MainWindow):
         except ValueError as e:
             QtWidgets.QMessageBox.warning(self, "Invalid input", str(e))
 
-    def goHome(self):
-        # coordinate = (self.lat, self.lon)
-        # geoMap = folium.Map(zoom_start=11, location=coordinate)
-        # folium.Marker(
-        #         location=[self.lat, self.lon], 
-        #         popup="Marker Popup Text",
-        #         icon=folium.Icon(icon="home", color="red")
-        #     ).add_to(geoMap)
-        # data = io.BytesIO()
-        # geoMap.save(data, close_file=False)
-        # self.webView.setHtml(data.getvalue().decode())
 
-        # Call the JavaScript function to go home
-        js_code = """
-            goHome();
+    # Call the JavaScript function to go home
+    def goHome(self):
+        js_code = f"""
+            goHome({self.lat}, {self.lon});
         """
         self.webView.page().runJavaScript(js_code)
