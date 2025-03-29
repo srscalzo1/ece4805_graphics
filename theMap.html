@@ -7,6 +7,7 @@
 
     <script>
         var myMap;
+        var currentMarker = null; // Stores the current marker
 
         function setMap() {
             myMap = L.map('map').setView([40.7128, -74.0060], 11);  // Set initial coordinates and zoom level
@@ -18,7 +19,11 @@
         function updateMap(lat, lon) {
             if (myMap) {
                 myMap.setView([lat, lon], 11);  // Dynamically update map view
-                L.marker([lat, lon]).addTo(myMap).bindPopup("New Location").openPopup();
+                if (currentMarker != null) {
+                    myMap.removeLayer(currentMarker)  // Removes the current marker
+                }
+
+                currentMarker = L.marker([lat, lon]).addTo(myMap).bindPopup("New Location").openPopup(); 
             }
         }
 
