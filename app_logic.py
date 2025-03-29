@@ -52,34 +52,3 @@ class AppWindow(QMainWindow, Ui_MainWindow):
         """
         self.webView.page().runJavaScript(js_code)
 
-    def custom_marker(self, coordinate, geoMap):
-        icon_url = "https://static.thenounproject.com/png/126504-200.png"
-
-        icon = folium.CustomIcon(
-            icon_url,
-            icon_size=(32,32),
-            icon_anchor=(16,16)
-        )
-
-        folium.Marker(location=coordinate, icon=icon).add_to(geoMap)
-
-    def inject_center_crosshair(self, geoMap):
-        crosshair_html = """
-        <style>
-            .crosshair {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                width: 32px;
-                height: 32px;
-                margin-left: -16px;
-                margin-top: -16px;
-                background: url('https://cdn.iconscout.com/icon/free/png-256/crosshair-1781277-1518657.png') no-repeat center center;
-                background-size: contain;
-                z-index: 9999;
-                pointer-events: none;
-            }
-        </style>
-        <div class="crosshair"></div>
-        """
-        geoMap.get_root().html.add_child(folium.Element(crosshair_html))
