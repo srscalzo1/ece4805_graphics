@@ -3,6 +3,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 import folium
 import io
 import time
+import random
 
 from PyQt5.QtWidgets import QMainWindow, QLabel, QMessageBox
 
@@ -52,3 +53,14 @@ class AppWindow(QMainWindow, Ui_MainWindow):
         """
         self.webView.page().runJavaScript(js_code)
 
+    # Todo: update this to parse a given csv file that contains data. Send that data to java script
+    def startUpdatingCoordinates(self):
+        """ Periodically send new coordinates to the map. """
+        while True:
+            latToSend = 40.7128 + random.uniform(-0.01, 0.01)  # Generate nearby random latitudes
+            lonToSend = -74.0060 + random.uniform(-0.01, 0.01)  # Generate nearby random longitudes
+            
+            js_code = f"updateCoordinatesFromPython({latToSend}, {lonToSend});"
+            self.webView.page().runJavaScript(js_code)
+
+            time.sleep(2)  # Send update every 2 seconds
