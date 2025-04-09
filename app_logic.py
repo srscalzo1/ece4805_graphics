@@ -25,17 +25,6 @@ class AppWindow(QMainWindow, Ui_MainWindow):
                 raise ValueError("Latitude must be between -90 and 90")
             if not (-180 <= self.lon <= 180):
                 raise ValueError("Longitude must be between -180 and 180")
-            # coordinate = (self.lat, self.lon)
-            # geoMap = folium.Map(zoom_start=11, location=coordinate)
-            # # Add a home icon to the map on selected corrdinates
-            # folium.Marker(
-            #     location=[self.lat, self.lon], 
-            #     popup="Marker Popup Text",
-            #     icon=folium.Icon(icon="home", color="red")
-            # ).add_to(geoMap)
-            # data = io.BytesIO()
-            # geoMap.save(data, close_file=False)
-            # self.webView.setHtml(data.getvalue().decode())
 
             # Call the JavaScript function to select coordinates
             js_code = f"""
@@ -54,13 +43,3 @@ class AppWindow(QMainWindow, Ui_MainWindow):
         self.webView.page().runJavaScript(js_code)
 
     # Todo: update this to parse a given csv file that contains data. Send that data to java script
-    def startUpdatingCoordinates(self):
-        """ Periodically send new coordinates to the map. """
-        while True:
-            latToSend = 40.7128 + random.uniform(-0.01, 0.01)  # Generate nearby random latitudes
-            lonToSend = -74.0060 + random.uniform(-0.01, 0.01)  # Generate nearby random longitudes
-            
-            js_code = f"updateCoordinatesFromPython({latToSend}, {lonToSend});"
-            self.webView.page().runJavaScript(js_code)
-
-            time.sleep(2)  # Send update every 2 seconds
