@@ -11,11 +11,17 @@
         var homeMarker = null;
         var index = 0;
         var coordinates = [
-            [40.7128, -74.0060],
-            [40.7138, -74.0050],
-            [40.7148, -74.0040],
-            [40.7158, -74.0030],
-            [40.7168, -74.0020]
+            [40.7128, -74.0060], // Lower Manhattan
+            [40.730610, -73.935242], // East Village
+            [40.7527, -73.9772], // Midtown
+            [40.7061, -73.9969], // Brooklyn Bridge
+            [40.6782, -73.9442], // Bedford-Stuyvesant (Brooklyn)
+            [40.6501, -73.9496], // Flatbush (Brooklyn)
+            [40.742054, -73.769417], // Queens Village
+            [40.7282, -73.7949], // Flushing (Queens)
+            [40.785091, -73.968285], // Central Park
+            [40.8448, -73.8648], // The Bronx
+            [40.7128, -74.0060] // Return to Lower Manhattan
         ];
 
         var circleStyle = {
@@ -30,6 +36,9 @@
             iconSize: [32, 32],
             iconAnchor: [16, 32]
         });
+
+        var trail = [];       // Stores coordinates the marker has visited
+        var trailLine = null; // The polyline object for the trail
 
         function setMap() {
             myMap = L.map('map').setView([40.7128, -74.0060], 11);
@@ -61,6 +70,16 @@
                     index = 0;
                 }
                 movingMarker.setLatLng(coordinates[index]);
+                // Add to trail
+                trail.push(coordinates[index]);
+
+                // If a line already exists, remove it
+                if (trailLine) {
+                    myMap.removeLayer(trailLine);
+                }
+
+                // Create a new polyline and add it to the map
+                trailLine = L.polyline(trail, { color: 'green' }).addTo(myMap);
                 index++;
             }, 1000);
         }
