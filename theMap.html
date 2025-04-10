@@ -51,19 +51,21 @@
                 .addTo(myMap);
 
             // 
-            let mapUpdated = true
+            //let mapUpdated = true
             // When map starts moving (user pans/zooms or setView/flyTo is called)
-            myMap.on('movestart', function () {
-                mapUpdated = false;
-            });
+            // myMap.on('movestart', function () {
+            //     mapUpdated = false;
+            // });
 
             // When map finishes moving
-            myMap.on('moveend', function () {
-                mapUpdated = true;
-            });
+            // myMap.on('moveend', function () {
+            //     setTimeout(() => {
+            //         mapUpdated = true;
+            //     }, 200);
+            // });
 
             setInterval(function () {
-                if (!mapUpdated) return; // Avoid updating while map is unstable
+                //if (!mapUpdated) return; // Avoid updating while map is unstable
 
                 // Move marker here
                 if (index >= coordinates.length) {
@@ -71,6 +73,7 @@
                 }
                 movingMarker.setLatLng(coordinates[index]);
                 // Add to trail
+                console.log("Moving to:", coordinates[index]);
                 trail.push(coordinates[index]);
 
                 // If a line already exists, remove it
@@ -96,8 +99,6 @@
         }
 
         function selectCoordinates(lat, lon) {
-            coordinates.push([lat, lon]);
-
             // Remove existing home marker if it exists
             if (homeMarker) {
                 myMap.removeLayer(homeMarker);
