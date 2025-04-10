@@ -17,29 +17,29 @@ from folium.plugins import MousePosition
 import io
 import os
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1165, 832)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(130, 50, 961, 641))
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setGeometry(QtCore.QRect(30, 30, 1101, 731))
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.tab)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 1091, 701))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 50, 0)
         self.verticalLayout.setObjectName("verticalLayout")
 
         # Add map to veritical layout
-        # coordinate = (40.7128, -74.0060)
-        # geoMap = folium.Map(zoom_start= 11, location= coordinate)
-        # MousePosition().add_to(geoMap)
-        # data = io.BytesIO()
-        # geoMap.save(data, close_file= False)
         self.webView = QWebEngineView()
         self.lat = 40.7128
         self.lon = -74.0060
-        #self.webView.setHtml(data.getvalue().decode())
         # Get the current working directory of the script
         current_dir = os.path.dirname(os.path.abspath(__file__))
         html_file_path = os.path.join(current_dir, "theMap.html")
@@ -47,12 +47,6 @@ class Ui_MainWindow(object):
         # Load the HTML file into QWebEngineView
         self.webView.setUrl(QUrl.fromLocalFile(html_file_path))
         self.verticalLayout.addWidget(self.webView)
-
-
-        # js_code = f"""
-        #         initializeMap({self.lat}, {self.lon});
-        # """
-        # self.webView.page().runJavaScript(js_code) 
 
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setContentsMargins(-1, -1, 0, -1)
@@ -92,9 +86,13 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addWidget(self.lineEdit_2)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
         self.verticalLayout.addLayout(self.horizontalLayout)
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.tabWidget.addTab(self.tab_2, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1165, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1165, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -102,6 +100,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -111,3 +110,5 @@ class Ui_MainWindow(object):
         self.pushButton.setText(_translate("MainWindow", "Update Coordinates"))
         self.label.setText(_translate("MainWindow", "Horizontal coordinate:"))
         self.label_2.setText(_translate("MainWindow", "Vertical coordinate:"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Tab 1"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Tab 2"))

@@ -7,7 +7,7 @@ import random
 
 from PyQt5.QtWidgets import QMainWindow, QLabel, QMessageBox
 
-from bluesen_v4 import Ui_MainWindow
+from bluesen_v5 import Ui_MainWindow
 
 
 class AppWindow(QMainWindow, Ui_MainWindow):
