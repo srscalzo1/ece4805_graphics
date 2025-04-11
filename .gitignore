@@ -1,2 +1,3 @@
 # Ignore java_files which contains sensitive information
 java_files/
+test_tracks/

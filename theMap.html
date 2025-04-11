@@ -115,6 +115,15 @@
             updateMap(lat, lon);
         }
 
+        function updateCoordinatesFromPython(lat, lon) {
+            if (typeof coordinates !== 'undefined') {
+                coordinates.push([lat, lon]);
+                console.log("Added from Python:", lat, lon);
+            } else {
+                console.log("coordinates array not ready yet");
+    }
+}
+
         window.onload = function () {
             setMap();
         };
